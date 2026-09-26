@@ -1,16 +1,263 @@
-import { ArrowDown, ArrowUpRight, Mail, MoveRight } from 'lucide-react';
+import { ArrowUpRight, Download, Mail, MessageSquareText, Quote, X } from 'lucide-react';
+import { useState } from 'react';
 import { profile } from '../data/profile';
-import { SectionTitle, ProjectCard, ProjectModal } from './UI';
+import { SectionTitle, ProjectCard, ProjectModal, CertificateCard, CertificateModal } from './UI';
 import { skillGroups } from '../data/skills';
 import { projects } from '../data/projects';
 import { experience, education } from '../data/experience';
-import { useState } from 'react';
+import { certificates } from '../data/certificates';
 
-export function Hero() { return <section className="hero" id="home"><div className="hero-copy"><span className="eyebrow reveal">{profile.eyebrow}</span><h1 className="reveal">{profile.name}<br/><em>{profile.heroTitle}</em></h1><p className="hero-lede reveal">{profile.description}</p><div className="hero-actions reveal"><button className="button primary" onClick={() => document.getElementById('projects').scrollIntoView({behavior:'smooth'})}>View projects <ArrowUpRight size={17}/></button><button className="button secondary" onClick={() => document.getElementById('contact').scrollIntoView({behavior:'smooth'})}>Contact me <MoveRight size={17}/></button></div><div className="hero-meta reveal"><span><i/> Available for thoughtful collaborations</span><span>Based in Egypt · Working globally</span></div></div><div className="hero-visual reveal"><div className="orb orb-one"/><div className="orb orb-two"/><div className="portrait-frame"><img src={profile.profileImage} alt={`${profile.name} portrait placeholder`} /></div><div className="code-float"><span>01</span><code>const <b>craft</b> = 'with intent';</code></div><div className="scroll-cue"><ArrowDown size={15}/> Scroll to explore</div></div></section>; }
-export function About() { return <section className="section about" id="about"><SectionTitle eyebrow="01 / About" title="Engineering with curiosity." text="A balance of technical thinking and human-centered design."/><div className="about-grid"><div className="about-copy"><p className="large-copy">{profile.about}</p><p>Whether I am shaping a component system, connecting an API, or exploring an idea with computer vision, I care about making the result useful, understandable, and built to last.</p><a className="text-link" href={`mailto:${profile.email}`}>Start a conversation <ArrowUpRight size={16}/></a></div><div className="about-facts"><div><strong>01</strong><span>Curious by default</span></div><div><strong>02</strong><span>Detail-oriented craft</span></div><div><strong>03</strong><span>Always learning</span></div></div></div></section>; }
-export function Skills() { return <section className="section skills" id="skills"><SectionTitle eyebrow="02 / Capabilities" title="A versatile toolkit." text="Tools are only useful when they help solve the right problem."/><div className="skill-grid">{skillGroups.map((g,i) => <div className="skill-card reveal" key={g.label}><span className="skill-icon">{g.icon}</span><span className="skill-number">0{i+1}</span><h3>{g.label}</h3><div>{g.items.map(item => <span key={item}>{item}</span>)}</div></div>)}</div></section>; }
-export function Projects() { const [selected, setSelected] = useState(null); return <section className="section projects" id="projects"><SectionTitle eyebrow="03 / Selected work" title="Ideas, made tangible." text="A selection of explorations and products across web, AI, and creative technology."/><div className="project-grid">{projects.map((p,i) => <ProjectCard key={p.id} project={p} featured={i===0} onOpen={setSelected}/>)}</div><ProjectModal project={selected} onClose={() => setSelected(null)}/></section>; }
-function Timeline({ items }) { return <div className="timeline">{items.map((item,i) => <div className="timeline-item reveal" key={item.role + i}><div className="timeline-dot"/><span className="timeline-period">{item.period}</span><div><h3>{item.role}</h3><h4>{item.place}</h4><p>{item.text}</p></div></div>)}</div>; }
-export function Experience() { return <section className="section experience" id="experience"><div className="split-title"><SectionTitle eyebrow="04 / Journey" title="Building in public, learning by doing."/><div className="journey-note">The entries below are intentionally editable. Add your own milestones, roles, and context in <code>src/data/experience.js</code>.</div></div><Timeline items={experience}/><div className="education"><span className="eyebrow">Education</span><Timeline items={education}/></div></section>; }
-export function Contact() { const [sent, setSent] = useState(false); const submit = e => { e.preventDefault(); if(e.currentTarget.checkValidity()) setSent(true); }; return <section className="section contact" id="contact"><div className="contact-intro"><SectionTitle eyebrow="05 / Contact" title={<>Let's build something <em>meaningful.</em></>} text="Have an idea, an opportunity, or simply want to say hello? I would love to hear from you."/><div className="contact-links"><a href={`mailto:${profile.email}`}><Mail size={18}/><span>Email<small>{profile.email}</small></span><ArrowUpRight size={17}/></a><a href={profile.linkedin} target="_blank" rel="noreferrer"><span className="social-icon">in</span><span>LinkedIn<small>Connect professionally</small></span><ArrowUpRight size={17}/></a><a href={profile.whatsapp} target="_blank" rel="noreferrer"><span className="social-icon">wa</span><span>WhatsApp<small>Start a conversation</small></span><ArrowUpRight size={17}/></a></div></div><form className="contact-form" onSubmit={submit}>{sent ? <div className="success"><span>✓</span><h3>Thanks for reaching out.</h3><p>Your message is ready to be connected to a backend when you are. For now, this form is frontend-only.</p><button type="button" className="text-link" onClick={() => setSent(false)}>Send another message</button></div> : <><label>Name<input required name="name" placeholder="Your name"/></label><label>Email<input required type="email" name="email" placeholder="you@example.com"/></label><label>Message<textarea required name="message" rows="5" placeholder="Tell me a little about your idea..."/></label><button className="button primary" type="submit">Send message <ArrowUpRight size={17}/></button></>}</form></section>; }
-export function Footer() { return <footer><div><span className="brand-mark">AI</span><strong>{profile.name}</strong><span>{profile.title}</span></div><div className="footer-right"><span>© {new Date().getFullYear()} {profile.name}</span><a href={profile.linkedin}>LinkedIn</a><a href={profile.whatsapp}>WhatsApp</a></div></footer>; }
+export function Hero() {
+  const [pointer, setPointer] = useState({ x: 0.5, y: 0.5 });
+
+  const handlePointerMove = (event) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    const x = (event.clientX - rect.left) / rect.width;
+    const y = (event.clientY - rect.top) / rect.height;
+    setPointer({ x, y });
+  };
+
+  const letters = profile.name.split('');
+
+  return (
+    <section className="hero" id="home" onMouseMove={handlePointerMove} onMouseLeave={() => setPointer({ x: 0.5, y: 0.5 })}>
+      <div className="hero-content">
+        <div className="hero-copy">
+          <span className="eyebrow reveal">{profile.eyebrow}</span>
+          <h1 className="hero-name reveal" aria-label={profile.name}>
+            {letters.map((char, index) => {
+              const spread = Math.abs(pointer.x - (index + 1) / letters.length);
+              const lift = (0.5 - spread) * 18;
+              const transform = `translateY(${Math.max(-8, Math.min(8, lift))}px)`;
+
+              return (
+                <span
+                  key={`${char}-${index}`}
+                  className="hero-letter"
+                  style={{
+                    transform,
+                    opacity: char === ' ' ? 0.95 : 1,
+                  }}
+                >
+                  {char === ' ' ? '\u00A0' : char}
+                </span>
+              );
+            })}
+          </h1>
+
+          <p className="subtitle reveal">{profile.heroSubtitle}</p>
+
+          <div className="hero-actions reveal">
+            <a className="cta-button" href={`https://wa.me/${profile.whatsapp}`} target="_blank" rel="noreferrer">
+              <MessageSquareText size={18} />
+              Let&apos;s work together
+            </a>
+            <a className="secondary-link" href="#projects">
+              View projects <ArrowUpRight size={16} />
+            </a>
+          </div>
+        </div>
+
+        <div className="hero-portrait reveal">
+          <div className="portrait-frame">
+            <img src={profile.profileImage} alt={profile.name} />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function About() {
+  return (
+    <section className="section about" id="about">
+      <SectionTitle
+        eyebrow="01 / About"
+        title="Thoughtful software engineering with a human-centered lens."
+        text="I design and build modern digital products that balance technical rigor with elegant interfaces."
+      />
+
+      <div className="about-grid">
+        <div className="about-text reveal">
+          <p>{profile.about}</p>
+          <p>{profile.aboutSecondary}</p>
+
+          <div className="info-list">
+            <span>Based in Egypt</span>
+            <span>Interested in AI, computer vision, UX, automation, and product engineering</span>
+            <span>Working across web, backend, and intelligent interfaces</span>
+          </div>
+        </div>
+
+        <div className="about-image reveal">
+          <img src="/images/profile.svg" alt="Abdelhamid Ibrahim portrait placeholder" />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function Skills() {
+  return (
+    <section className="section skills" id="skills">
+      <SectionTitle
+        eyebrow="02 / Skills"
+        title="A focused toolkit built for modern digital products."
+        text="From interface design to backend systems, I build with clarity, precision, and practical engineering judgment."
+      />
+
+      <div className="skills-grid">
+        {skillGroups.map((group) => (
+          <div className="skill-group reveal" key={group.label}>
+            <div className="skill-group-header">
+              <span className="skill-icon">{group.icon}</span>
+              <span className="skill-group-title">{group.label}</span>
+            </div>
+            <div className="skill-items">
+              {group.items.map((item) => (
+                <span key={item} className="skill-item">
+                  {item}
+                </span>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+export function Projects() {
+  const [selected, setSelected] = useState(null);
+
+  return (
+    <>
+      <section className="section projects" id="projects">
+        <SectionTitle
+          eyebrow="03 / Projects"
+          title="Selected work shaped by curiosity, systems thinking, and product craft."
+          text="A mix of AI-focused experiences, automation ideas, frontend work, and experimentation with modern tools."
+        />
+
+        <div className="projects-grid">
+          {projects.map((project) => (
+            <ProjectCard key={project.title} project={project} onOpen={setSelected} />
+          ))}
+        </div>
+      </section>
+
+      <ProjectModal project={selected} onClose={() => setSelected(null)} />
+    </>
+  );
+}
+
+function Timeline({ items }) {
+  return (
+    <div className="timeline">
+      {items.map((item, index) => (
+        <div className="timeline-item reveal" key={`${item.period}-${item.role}-${index}`}>
+          <div className="timeline-dot" />
+          <div className="timeline-content">
+            <span className="period">{item.period}</span>
+            <span className="role">{item.role}</span>
+            <span className="place">{item.place}</span>
+            <p>{item.text}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+export function Experience() {
+  return (
+    <section className="section experience" id="experience">
+      <div className="split-title">
+        <SectionTitle
+          eyebrow="04 / Journey"
+          title="A path shaped by engineering practice, learning, and digital exploration."
+          text="Work, study, and project-building across Egypt and the UAE, with a strong grounding in technology and professional growth."
+        />
+
+        <div className="ambient-note reveal">
+          <Quote size={24} />
+          <p>
+            Building reliable systems and thoughtful experiences that turn ideas into modern digital products.
+          </p>
+        </div>
+      </div>
+
+      <div className="experience-content">
+        <Timeline items={experience} />
+        <div className="education-wrap">
+          <h3>Education</h3>
+          <Timeline items={education} />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function Certificates() {
+  const [selected, setSelected] = useState(null);
+
+  return (
+    <>
+      <section className="section certificates" id="certificates">
+        <SectionTitle
+          eyebrow="05 / Certifications"
+          title="Professional learning and technology development."
+          text="A curated collection of certifications and learning milestones, ready to be replaced with official materials when available."
+        />
+
+        <div className="certificates-grid">
+          {certificates.map((certificate, index) => (
+            <CertificateCard key={`${certificate.title}-${index}`} certificate={certificate} onOpen={setSelected} />
+          ))}
+        </div>
+      </section>
+
+      <CertificateModal certificate={selected} onClose={() => setSelected(null)} />
+    </>
+  );
+}
+
+export function Contact() {
+  return (
+    <section className="section contact" id="contact">
+      <div className="contact-content reveal">
+        <span className="eyebrow">06 / Contact</span>
+        <h2>Let&apos;s work together.</h2>
+        <p>
+          I’m interested in meaningful software engineering, thoughtful digital products, AI-driven experiences,
+          product design collaboration, and engineering work that combines elegance with practical impact.
+        </p>
+
+        <a className="cta-button" href={`https://wa.me/${profile.whatsapp}`} target="_blank" rel="noreferrer">
+          <MessageSquareText size={18} />
+          Message on WhatsApp
+        </a>
+      </div>
+    </section>
+  );
+}
+
+export function Footer() {
+  return (
+    <footer>
+      <div>
+        <div>
+          <span className="brand-mark">AI</span>
+          <div>
+            <strong>{profile.name}</strong>
+            <span>{profile.title}</span>
+          </div>
+        </div>
+
+        <div className="footer-right">
+          <span>© {new Date().getFullYear()} {profile.name}</span>
+        </div>
+      </div>
+    </footer>
+  );
+}

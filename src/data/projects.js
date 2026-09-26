@@ -1,8 +1,17 @@
-export const projects = [
-  { id: '01', title: 'AI Business Assistant', category: 'AI / Automation', image: '/images/projects/project-01.svg', description: 'An AI-powered business assistant designed to streamline customer communication and everyday workflow management.', technologies: ['Python', 'AI', 'APIs', 'Automation'], features: ['Context-aware conversations', 'Workflow automation', 'Structured API integrations'], role: 'Product & Software Engineering' },
-  { id: '02', title: 'Meal Planner', category: 'Full-stack Web App', image: '/images/projects/project-02.svg', description: 'A focused meal planning system for organizing recipes, ingredients, and weekly plans in one calm workspace.', technologies: ['Python', 'Flask', 'SQLite', 'JavaScript'], features: ['Recipe organization', 'Weekly planning', 'Ingredient tracking'], role: 'Full-stack Development' },
-  { id: '03', title: 'GestureMouse', category: 'Computer Vision', image: '/images/projects/project-03.svg', description: 'A computer vision experiment that enables cursor control through expressive hand gestures.', technologies: ['Python', 'MediaPipe', 'OpenCV', 'Computer Vision'], features: ['Real-time hand tracking', 'Gesture recognition', 'Low-friction interaction'], role: 'Computer Vision Engineering' },
-  { id: '04', title: 'Interactive Motion Experience', category: 'Creative Technology', image: '/images/projects/project-04.svg', description: 'A real-time visual experience combining hand tracking with a responsive particle system.', technologies: ['Python', 'OpenCV', 'MediaPipe', 'Particles'], features: ['Live visual response', 'Particle interactions', 'Camera-based input'], role: 'Creative Development' },
-  { id: '05', title: 'Cyber Security Platform', category: 'Web Experience', image: '/images/projects/project-05.svg', description: 'A modern cybersecurity-focused web experience with a clear, confident visual language.', technologies: ['HTML', 'CSS', 'JavaScript', 'Security'], features: ['Threat-focused information design', 'Responsive interface', 'Accessible content hierarchy'], role: 'Frontend Development' },
-  { id: '06', title: 'Modern Digital Product', category: 'Product Concept', image: '/images/projects/project-06.svg', description: 'A premium responsive application concept built around clarity, speed, and a considered user journey.', technologies: ['React', 'JavaScript', 'CSS'], features: ['Responsive architecture', 'Reusable components', 'Polished interaction states'], role: 'Frontend Engineering' },
-];
+// Central profile configuration. Replace the content here whenever you want to update the personal details.
+export const profile = {
+  name: 'ABDELHAMID IBRAHIM',
+  title: 'Software Engineer',
+  eyebrow: 'Software Engineer / Builder',
+  heroSubtitle:
+    'I build modern digital products with a focus on software engineering, frontend systems, backend thinking, AI experimentation, and elegant user experiences.',
+  description:
+    'I am a Software Engineer interested in software engineering, web development, frontend development, backend development, artificial intelligence, computer vision, cybersecurity, UI/UX, automation, and modern digital products.',
+  about:
+    'I am a Software Engineer interested in software engineering, web development, frontend development, backend development, artificial intelligence, computer vision, cybersecurity, UI/UX, automation, and modern digital products. My work focuses on creating useful digital experiences that are technically sound, visually refined, and aligned with how real users engage with products.',
+  aboutSecondary:
+    'I enjoy turning ideas into thoughtful interfaces and reliable systems — whether through modern frontend experiences, backend logic, AI-driven workflows, or product experimentation that combines engineering discipline with design sensibility.',
+  email: 'YOUR_EMAIL@example.com',
+  whatsapp: 'YOUR_WHATSAPP_NUMBER',
+  profileImage: '/images/profile.svg',
+};

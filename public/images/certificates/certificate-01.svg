@@ -1,0 +1,44 @@
+export const certificates = [
+  {
+    title: 'Google Technology Foundations',
+    organization: 'Google',
+    date: 'Editable date',
+    description: 'Replace this item with the exact certificate name, date, and description when available.',
+    image: '/images/certificates/certificate-01.svg',
+  },
+  {
+    title: 'Microsoft Technology Learning',
+    organization: 'Microsoft',
+    date: 'Editable date',
+    description: 'Replace this item with the exact certificate name, date, and description when available.',
+    image: '/images/certificates/certificate-02.svg',
+  },
+  {
+    title: 'NTI Certification',
+    organization: 'National Telecommunication Institute (NTI)',
+    date: 'Editable date',
+    description: 'Replace this item with the exact certificate name, date, and description when available.',
+    image: '/images/certificates/certificate-03.svg',
+  },
+  {
+    title: 'MCIT Technology Certificate',
+    organization: 'Ministry of Communications and Information Technology (MCIT)',
+    date: 'Editable date',
+    description: 'Replace this item with the exact certificate name, date, and description when available.',
+    image: '/images/certificates/certificate-04.svg',
+  },
+  {
+    title: 'Technology Skills Certificate',
+    organization: 'Additional Technology Certification',
+    date: 'Editable date',
+    description: 'Replace this item with the exact certificate information when available.',
+    image: '/images/certificates/certificate-05.svg',
+  },
+  {
+    title: 'Professional Development Certificate',
+    organization: 'Other Technology Certification',
+    date: 'Editable date',
+    description: 'Replace this item with the exact certificate information when available.',
+    image: '/images/certificates/certificate-06.svg',
+  },
+];
